@@ -9,5 +9,5 @@ I would like to see a list of bookmarks.
 
 
 
-![alt_text](./Bookmarks_app_model.png)
+![Alt text](./Bookmarks_app_model.png)
 # Bookmark_Manager
