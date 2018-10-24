@@ -4,7 +4,7 @@ require './lib/bookmark'
 class MyApp < Sinatra::Base
 
   get '/' do
-    "Bookmark page"
+    erb :index
   end
 
   get '/bookmarks' do
