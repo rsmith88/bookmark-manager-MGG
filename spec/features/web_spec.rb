@@ -1,3 +1,5 @@
+require 'pg'
+
 feature 'index page' do
   scenario 'shows bookmarks on page' do
     visit '/'
