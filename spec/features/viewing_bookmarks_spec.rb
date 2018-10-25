@@ -3,7 +3,6 @@ require 'pg'
 feature 'Viewing bookmarks' do
   scenario 'A user can see bookmarks' do
     connection = PG.connect(dbname: 'bookmark_manager_test')
-
     connection.exec("INSERT INTO bookmarks (title, url) VALUES('Makers', 'www.makersacademy.com');")
     connection.exec("INSERT INTO bookmarks (title, url) VALUES('BBC', 'www.bbc.co.uk');")
 
@@ -11,8 +10,6 @@ feature 'Viewing bookmarks' do
 
     expect(page).to have_content 'Makers'
     expect(page).to have_content 'BBC'
-    # expect(page).to have_content "Makers"
-    # expect(page).to have_content "BBC"
   end
 
   # feature 'viewing bookmarks' do
