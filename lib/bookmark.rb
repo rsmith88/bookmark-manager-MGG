@@ -1,5 +1,5 @@
 require 'pg'
-require 'database_connection'
+require_relative 'database_connection'
 
 class Bookmark
   attr_reader :id, :title, :url
@@ -12,7 +12,6 @@ class Bookmark
   end
 
   def self.all
-    #setup_connection
     results = DatabaseConnection.query('SELECT * FROM bookmarks')
     results.map do |bookmark|
       Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
@@ -20,14 +19,12 @@ class Bookmark
   end
 
   def self.create(title:, url:)
-    #return false unless is_url?(url)
-    #setup_connection
+    return false unless is_url?(url)
     result = DatabaseConnection.query("INSERT INTO bookmarks (title, url) VALUES ('#{title}', '#{url}') RETURNING id, title, url;")
     Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0][url])
   end
 
   def self.delete(id:)
-    #setup_connection
     DatabaseConnection.query("DELETE FROM bookmarks WHERE id = #{id}")
   end
 
@@ -39,6 +36,11 @@ class Bookmark
   def self.find(id:)
     result = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id = #{id};")
     Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
+  private
+  def self.is_url?(url)
+    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
   end
 
   # def self.setup_connection
